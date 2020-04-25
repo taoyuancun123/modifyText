@@ -19,14 +19,16 @@
     document.body.addEventListener("dblclick",modifyText);
 
     function modifyText(e){
+
         console.log(e.target);
-        if(e.target.hasChildNodes("#text")){
+        if(e.target.hasChildNodes()){
                     if(e.target.childNodes[0].nodeName!="TEXTAREA"){
+
                         e.target.insertAdjacentHTML("afterBegin",`<textarea class="test1"></textarea>`);
                         document.getElementsByClassName("test1")[0].value=e.target.innerText;
 
-                        document.getElementsByClassName("test1")[0].style.width=e.target.clientWidth+"px";
-                        document.getElementsByClassName("test1")[0].style.height=e.target.clientHeight+"px";
+                        document.getElementsByClassName("test1")[0].style.width=e.target.clientWidth>300?e.target.clientWidth+"px":"300px";
+                        document.getElementsByClassName("test1")[0].style.height=e.target.clientHeight>50?e.target.clientHeight+"px":"50px";
                         document.getElementsByClassName("test1")[0].focus();
                         //e.target.innerText="";
                         document.getElementsByClassName("test1")[0].addEventListener("blur",function(e1){
@@ -36,5 +38,6 @@
                        });
                     }
            }
+    event.preventDefault();
     }
 })();
