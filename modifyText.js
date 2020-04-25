@@ -1,10 +1,14 @@
 // ==UserScript==
-// @name         文字内容修改器-可以伪装成名人发微博等等
+// @name         文字内容修改器-可以伪装成名人发微博等等恶搞。
 // @namespace    http://tampermonkey.net/
 // @version      0.1
 // @description  try to take over the world!
 // @author       You
 // @match        *://*/*
+// @updateURL         https://raw.githubusercontent.com/taoyuancun123/modifyText/master/modifyText.js
+// @downloadURL       https://raw.githubusercontent.com/taoyuancun123/modifyText/master/modifyText.js
+// @homepageURL       https://github.com/taoyuancun123/modifyText/blob/master/modifyText.js
+// @supportURL        https://github.com/taoyuancun123/modifyText/issues
 // @grant        none
 // ==/UserScript==
 
