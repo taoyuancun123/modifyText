@@ -1,7 +1,7 @@
 // ==UserScript==
 // @name         文字内容修改器-可以伪装成名人发微博等等恶搞。
 // @namespace    http://tampermonkey.net/
-// @version      0.1
+// @version      0.2
 // @description  try to take over the world!
 // @author       You
 // @match        *://*/*
