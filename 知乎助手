@@ -1,13 +1,11 @@
 // ==UserScript==
-// @name         知乎助手
+// @name         知乎助手，包含屏蔽购物推荐、屏蔽信息流广告、按关键词屏蔽、屏蔽知乎（专心工作）、右键添加在知乎中搜索
 // @namespace    http://tampermonkey.net/
-// @version      1.0.0
-// @description  知乎助手
+// @version      1.0.9
+// @description  知乎助手，屏蔽回答中的购物推荐、信息流广告等等
 // @author       桃源隐叟
 // @match        *://www.zhihu.com/*
 // @match        *://www.zhihu.com
-// @updateURL         https://raw.githubusercontent.com/taoyuancun123/modifyText/master/modifyText.js
-// @downloadURL       https://raw.githubusercontent.com/taoyuancun123/modifyText/master/modifyText.js
 // @homepageURL       https://github.com/taoyuancun123/modifyText/blob/master/modifyText.js
 // @supportURL        https://github.com/taoyuancun123/modifyText/issues
 // @grant        none
@@ -19,7 +17,8 @@
     /* globals jQuery, $, waitForKeyElements */
 
     // Your code here...
-    var controlPanel=`<div style="z-index=9999;position:fixed;left:50px;top:300px;border:1px solid #888;padding:30px;" id="control-div">
+    var controlPanel=`<p class="toggle-control" style="z-index:201;position:fixed;left:50px;top:100px;background-color:white;margin:2px 1px 1px 2px;text-decoration:underline;">显示/隐藏面板</p>
+<div style="z-index:200;position:fixed;left:50px;top:100px;border:1px solid #888;padding:30px;border-radius:5px;background-color:white;" id="control-div">
 <h2>设置屏蔽选项</h2>
 <br>
 <span>屏蔽购物推荐</span><input type="radio" name="recommend" value="on" checked>开<input type="radio" name="recommend" value="off">关<br>
@@ -32,13 +31,6 @@
 
     document.body.insertAdjacentHTML("afterBegin",controlPanel);
 
-    $(".ContentItem-more").on("click",function(){
-        if($("[name='recommend']:checked")[0].value==="on"){
-            $(".RichText-MCNLinkCardContainer").css("display","none");
-        }else{
-            $(".RichText-MCNLinkCardContainer").css("display","block");
-        }
-    });
 
     window.onload=()=>{
         initSetting();
@@ -48,8 +40,21 @@
         funcBlockSite();
     }
 
+    document.body.onscroll=function(){
+        funcBlockRecommend();
+        funcBlockAds();
+        funcBlockByKeyWord();
+        funcBlockSite();
+    }
 
 
+    function funcBlockRecommend(){
+        if($("[name='recommend']:checked")[0].value==="on"){
+            $(".RichText-MCNLinkCardContainer").css("display","none");
+        }else{
+            $(".RichText-MCNLinkCardContainer").css("display","block");
+        }
+    }
     function funcBlockAds(){
         if($("[name='ads']:checked")[0].value==="on")
         {
@@ -61,14 +66,17 @@
 
     function funcBlockByKeyWord(){
         var blockKeywords=$(".blockkeyword")[0].value;
-        var bkArray=blockKeywords.split(",");
-        for(let i=0;i<bkArray.length;i++){
-            if($("[name='keyword']:checked")[0].value==="on"){
-                $(`.TopstoryItem:contains(${bkArray[i]})`).css("display","none");
-            }else{
-                $(`.TopstoryItem:contains(${bkArray[i]})`).css("display","block");
+        if(blockKeywords!=""){
+            var bkArray=blockKeywords.split(",");
+            for(let i=0;i<bkArray.length;i++){
+                if($("[name='keyword']:checked")[0].value==="on"){
+                    $(`.TopstoryItem:contains(${bkArray[i]})`).css("display","none");
+                }else{
+                    $(`.TopstoryItem:contains(${bkArray[i]})`).css("display","block");
+                }
             }
         }
+
     }
 
     function funcBlockSite(){
@@ -117,6 +125,10 @@
 
     $(".blocksite").blur(function(){
         setCookie('blocksiteTip',$(".blocksite")[0].value);
+    });
+
+    $(".toggle-control").click(function(){
+        $("#control-div").toggle();
     });
 
 
