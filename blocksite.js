@@ -1,14 +1,8 @@
 // ==UserScript==
-// @name   网站屏蔽，可以设置屏蔽知乎、微博、哔哩哔哩、优酷、youtube、twitter、facebook、iqiyi、腾讯等让人分心的网站
-// @name:en      SiteBlocker，block site,block website，youtube、twitter、facebook
-// @name:zh-TW   网站屏蔽，可以设置屏蔽知乎、微博、哔哩哔哩、优酷、youtube、twitter、facebook、iqiyi、腾讯等让人分心的网站
-// @name:zh-HK   网站屏蔽，可以设置屏蔽知乎、微博、哔哩哔哩、优酷、youtube、twitter、facebook、iqiyi、腾讯等让人分心的网站
+// @name      SiteBlocker，block site,block website,blocksite
 // @namespace    http://tampermonkey.net/
 // @version      1.0.10
-// @description  超强的网站屏蔽器，可以按照您的需求屏蔽不想上的网站，进入被屏蔽的网站，将会跳转到重定向网站（默认：bing.com）。在bing.com插入了一个设置入口，可以随时更改网站屏蔽设置。自己感觉这脚本挺有用的，不知道为什么安装的人好少。
 // @description:en  Super website blocker, you can block the websites you don't want to go according to your needs. When you enter the blocked website, you will jump to the redirected website (default: bing.com) A setting entry is inserted in bing.com, and you can change the website blocking setting at any time.
-// @description:zh-TW  超强的网站屏蔽器，可以按照您的需求屏蔽不想上的网站，进入被屏蔽的网站，将会跳转到重定向网站（默认：bing.com）。在bing.com插入了一个设置入口，可以随时更改网站屏蔽设置。
-// @description:zh-HK  超强的网站屏蔽器，可以按照您的需求屏蔽不想上的网站，进入被屏蔽的网站，将会跳转到重定向网站（默认：bing.com）。在bing.com插入了一个设置入口，可以随时更改网站屏蔽设置。
 // @author       桃源隐叟
 // @match        *
 // @match        *://*
