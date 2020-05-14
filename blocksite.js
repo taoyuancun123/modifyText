@@ -1,18 +1,22 @@
 // ==UserScript==
-// @name      SiteBlocker，block site,block website,blocksite
-// @namespace    http://tampermonkey.net/
-// @version      1.0.10
-// @description:en  Super website blocker, you can block the websites you don't want to go according to your needs. When you enter the blocked website, you will jump to the redirected website (default: bing.com) A setting entry is inserted in bing.com, and you can change the website blocking setting at any time.
-// @author       桃源隐叟
+// @namespace     https://openuserjs.org/users/sunrise
+// @name          blocksite,SiteBlocker，block site,block website
+// @description   Showing the current basic and recommended format for a User script.
+// @copyright     2020, sunrise (https://openuserjs.org/users/sunrise)
+// @license       OSI-SPDX-Short-Identifier
+// @version       0.0.0
 // @match        *
 // @match        *://*
 // @match        *://*/*
 // @grant GM_setValue
 // @grant GM_getValue
 // @run-at document-body
-
-
 // ==/UserScript==
+
+// ==OpenUserJS==
+// @author sunrise
+// ==/OpenUserJS==
+
 (function() {
     'use strict';
 
@@ -94,7 +98,6 @@
             background-color:#fafafa;
             position:fixed;
             z-index:1001;
-
         }
         .setting-wrapper{
             margin-left:30%;
@@ -103,85 +106,62 @@
             font-size:20px;
             margin-bottom: 8px;
         }
-
         .header_main_subTitle{
             font-size: 14px;
         }
-
         .close-btn{
             float:right;
             margin:5px;
         }
-
         .intro{
             border-bottom:5px solid #eee;
-
         }
-
         .input-area{
             border-bottom:5px solid #eee;
         }
-
         .list-area{
             border-bottom:5px solid #eee;
         }
-
         textarea{
             width:380px;
             margin:10px 0px 5px 10px;
             height: 22px;
             vertical-align: middle;
-
         }
-
         .blocksite-url button{
             vertical-align: middle;
             margin:10px 0px 5px 10px;
         }
-
         .weekday-div{
             margin: 10px 10px 10px 20px;
             border-bottom: 2px solid #ddd;
             padding: 2px 10px;
-
         }
-
         .daytime-div{
             margin: 10px 10px 10px 20px;
             padding: 2px 10px;
-
         }
-
         .whitelist-div{
             float:right;
         }
-
         .list-area{
             margin:10px 0px;
         }
-
         .list-header{
             padding-bottom: 10px;
             border-bottom: 2px solid #bbb;
         }
-
         .list-body{
             margin: 10px 10px 10px 20px;
-
             padding-bottom: 10px;
-
         }
-
         .list-item{
             display:flex;
             justify-content:space-between;
             border-bottom: 2px solid #ddd;
             padding:3px 0px;
         }
-
     </style>
-
-
     <div id="setting-panel" style="display:none;" >
         <button class="close-btn">X</button>
         <div class="setting-wrapper">
@@ -194,13 +174,10 @@
                     <span>${langSet.inputBlockTip}</span><textarea rows="1" placeholder="${langSet.blockPlaceHolder}" class="ta-blocksite-url"></textarea>
                     <button class="btn-blocksite-url">${langSet.blockBtn}</button>
                 </div>
-
                 <div>
                     <span>${langSet.inputRelocateTip}
                     </span><textarea rows="1" placeholder="${langSet.relocatePlaceHolder}" class="ta-relocate-url"></textarea><button class="btn-relocate-url">${langSet.relocateBtn}</button><span>  默认https://www.bing.com</span>
-
                 </div>
-
                 <div>
                     <span>${langSet.planSelectTip}</span><input type="checkbox" name="turnon" value="off" id="plan"><label for="plan">${langSet.checkPlanTip}</label>
                     <div>
@@ -219,7 +196,6 @@
                     </div>
                 </div>
             </div>
-
             <div class="list-area" >
                 <span></span>
                 <div>
@@ -231,7 +207,6 @@
                     </div>
                     <div class="list-body">
                     </div>
-
                 </div>
             </div>
         </div>
@@ -279,10 +254,10 @@
 
     function initBlockSiteStr(){
         var blockSiteStr=GM_getValue("blockSiteStr");
-        if(blockSiteStr==undefined){
+        if(blockSiteStr===undefined){
             GM_setValue("blockSiteStr","");
         }else{
-            if(blockSiteStr!="")generateBlockSiteList(blockSiteStr);
+            if(blockSiteStr!=="")generateBlockSiteList(blockSiteStr);
             
         } 
     }
@@ -292,7 +267,7 @@
         document.getElementsByClassName("btn-relocate-url")[0].addEventListener("click",setRelocateUrl);
 
         var relocateUrl=GM_getValue("relocateUrl");
-        if(relocateUrl==undefined){
+        if(relocateUrl===undefined){
             GM_setValue("relocateUrl","");
             relocateUrl="";
         }
@@ -310,7 +285,7 @@
 
     function initWhiteList(){
         var isWhiteListOn=GM_getValue("whitelist");
-        if(isWhiteListOn==undefined){
+        if(isWhiteListOn===undefined){
             GM_setValue("whitelist",document.getElementsByName("whitelist")[0].checked);
         }else{
             document.getElementsByName("whitelist")[0].checked=isWhiteListOn;
@@ -322,7 +297,7 @@
     function initHourRange(){
         var hourRange=GM_getValue("hourRange");
         var inputHourRange=document.getElementsByName("hourrange");
-        if(hourRange==undefined){
+        if(hourRange===undefined){
             hourRange=inputHourRange[0].value+","+inputHourRange[1].value;
             GM_setValue("hourRange",hourRange);
         }else{
@@ -337,7 +312,7 @@
 
     function initTurnon(){
         var isTurnon=GM_getValue("turnon");
-        if(isTurnon==undefined){
+        if(isTurnon===undefined){
             GM_setValue("turnon",document.getElementsByName("turnon")[0].checked);
         }else{
             document.getElementsByName("turnon")[0].checked=isTurnon;
@@ -351,7 +326,7 @@
 
         for(let i=0;i<weekdayCbs.length;i++){
             var isWeekdayOn=GM_getValue(weekdayCbs[i].value);
-            if(isWeekdayOn==undefined){
+            if(isWeekdayOn===undefined){
                 GM_setValue(weekdayCbs[i].value,weekdayCbs[i].checked);
             }else{
                 weekdayCbs[i].checked=isWeekdayOn;
@@ -426,12 +401,12 @@
 
         var newBlockSite=document.getElementsByClassName("ta-blocksite-url")[0].value;
         //console.log(newBlockSite);
-        if(newBlockSite!=""){
+        if(newBlockSite!==""){
             var blockSiteStr=GM_getValue("blockSiteStr");
             if(blockSiteStr.includes(newBlockSite)){
                 alert("网址已经存在！");
             }else{
-                if(blockSiteStr!=""){
+                if(blockSiteStr!==""){
                     blockSiteStr+=","+newBlockSite;
                 }else{
                     blockSiteStr=newBlockSite;
@@ -485,7 +460,7 @@
         var blockSiteArray=blockSiteStr.split(",");
         document.getElementsByClassName("list-body")[0].innerHTML="";
 
-        if(blockSiteArray=="")return;
+        if(blockSiteArray==="")return;
         for(let i=0;i<blockSiteArray.length;i++){
             var blockListItem=`
                 <div class="list-item">
@@ -532,12 +507,12 @@
         var relocateUrl=GM_getValue("relocateUrl");
         //console.log(blockSiteStr);
         //console.log(relocateUrl);
-        relocateUrl=(relocateUrl==undefined)?"https://www.bing.com":relocateUrl;
+        relocateUrl=(relocateUrl===undefined)?"https://www.bing.com":relocateUrl;
         if(!relocateUrl.includes("https") && !relocateUrl.includes("http")){
             relocateUrl="https://www.bing.com";
         }
 
-        if(blockSiteStr!=""){
+        if(blockSiteStr!==""){
             //console.log(blockSiteStr);
             var blockSiteArray=blockSiteStr.split(",");
 
@@ -560,7 +535,7 @@
 
             }
 
-            if(GM_getValue("whitelist") &&(whitePass==false)){
+            if(GM_getValue("whitelist") &&(whitePass===false)){
                 window.location.href=relocateUrl;
             }
         }
