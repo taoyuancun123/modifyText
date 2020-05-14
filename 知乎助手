@@ -1,13 +1,11 @@
 // ==UserScript==
-// @name         知乎助手，包含屏蔽购物推荐、屏蔽信息流广告、按关键词屏蔽、屏蔽知乎（专心工作）、右键添加在知乎中搜索
+// @name         知乎助手，包含多个功能
 // @namespace    http://tampermonkey.net/
-// @version      1.0.9
-// @description  知乎助手，屏蔽回答中的购物推荐、信息流广告等等
+// @version      1.0.18
+// @description  新版本修改：默认隐藏，按右下角黑色+号，显示。功能简介：1、暂时屏蔽知乎，可随时开关；2、根据关键词屏蔽回答，比如关键词"如何,看待"，就会屏蔽首页推荐里所有包含“如何”或者“看待”关键词的回答；3、右键菜单中添加“在知乎搜索”，选中文字就可右键搜索；4、屏蔽信息流广告；5、屏蔽回答中的购物推荐
 // @author       桃源隐叟
 // @match        *://www.zhihu.com/*
 // @match        *://www.zhihu.com
-// @homepageURL       https://github.com/taoyuancun123/modifyText/blob/master/modifyText.js
-// @supportURL        https://github.com/taoyuancun123/modifyText/issues
 // @grant        none
 //@require https://code.jquery.com/jquery-2.1.4.min.js
 // ==/UserScript==
@@ -17,8 +15,9 @@
     /* globals jQuery, $, waitForKeyElements */
 
     // Your code here...
-    var controlPanel=`<p class="toggle-control" style="z-index:201;position:fixed;left:50px;top:100px;background-color:white;margin:2px 1px 1px 2px;text-decoration:underline;">显示/隐藏面板</p>
-<div style="z-index:200;position:fixed;left:50px;top:100px;border:1px solid #888;padding:30px;border-radius:5px;background-color:white;" id="control-div">
+    var controlPanel=`<p class="toggle-control" style="z-index:201;position:fixed;right:100px;bottom:100px;margin:2px 1px 1px 2px;text-decoration:underline;">
+<img src="http://pic.90sjimg.com/design/00/21/84/57/58fd89ee39300.png!/fw/250/quality/90/unsharp/true/compress/true/canvas/250x250/cvscolor/FFFFFFFF" style="width:30px;height:30px;"></p>
+<div style="z-index:200;position:fixed;right:100px;bottom:100px;border:1px solid #888;padding:30px;border-radius:5px;background-color:white;display:none" id="control-div">
 <h2>设置屏蔽选项</h2>
 <br>
 <span>屏蔽购物推荐</span><input type="radio" name="recommend" value="on" checked>开<input type="radio" name="recommend" value="off">关<br>
@@ -84,14 +83,17 @@
             var blockTip=$(".blocksite")[0].value?$(".blocksite")[0].value:$(".blocksite")[0].placeholder;
             var blockHtml=`<h1 style="text-align:center;font-size:50px;">${blockTip}</h1>`;
             //$("body").css("display","none");
-            //$("#control-div").css("display","block");
+
             //$("body").html(blockHtml);
+
             var bodyChildren=$("body").children();
             for(let i=0;i<bodyChildren.length;i++){
                 if(bodyChildren[i].id!="control-div"){
                     $(bodyChildren[i]).css("display","none")
                 }
             }
+            //$("#control-div").css("display","block");
+            $(".toggle-control").css("display","block");
             $("body").prepend(blockHtml);
             $("#container").css("display","none");
             $("iframe").css("display","none");
